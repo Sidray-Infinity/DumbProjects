@@ -1,0 +1,7 @@
+PROTOCOLS = ["https", "http"]
+METHODS = ["GET", "DELETE", "POST"]
+DEFAULT_METHOD = 'GET'
+DEFAULT_PORT = 80
+PROTOCOL_TO_STRING = {
+    "http": "HTTP/1.1"
+}
