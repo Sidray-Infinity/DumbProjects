@@ -1,10 +1,10 @@
 # QR Code Generator
 
-QR code generator for URLs
+QR (Quick Response) code generator for URLs
 
 ## Configuration Used
 - <b>QR Code version used: 4</b> (Page 33 of resources/ISO IEC 18004 2015 Standard.pdf); 33 modules
-- Using Alphanumeric Mode; 0010
+- Using Byte Mode; 0100
 
 ## Encoding Modes
 - numeric: [0-9]; Mode Indicator: 0001
@@ -48,18 +48,30 @@ QR code generator for URLs
 ### Encoding Region
 - Represents data, error correction, codewords, format information, version information
 
-## Alphanumeric Encoding / Decoding Table
-<img alt="alpha_num_encode_decode" width="800" height="400" src="resources/alpha_num_decode_encode.jpg">
-
-## Number of bits post encoding for Alphanumeric mode
+## Number of bits post encoding for Byte Mode
 ```
-B = M * C + 10 * (D // 3) + R
+B = M + C + 8D
 ```
 where:
 - B: number of bits in bit stream
 - M: number of bits in mode indicator = 4
-- C: number of bits in character count indicator: 5 for V4 Alphanumeric Mode
+- C: number of bits in character count indicator: 5 for V4 Byte Mode
 - D: number of input data characters
-- R: 0 if D % 3 == 0
-- R: 4 if D % 3 == 1
-- R: 7 if D % 3 == 2
+
+## Error Correction
+- <a href='https://en.wikipedia.org/wiki/Finite_field'>Galois Field</a> of order 256; GF(256)
+    - Addition -> XOR
+    - Multiplication -> Results in an element within GF(256)
+
+#### Types of Errorneous Codewords
+- Erasures: Erroneous codewords at known locations
+- Errors: Erroneous codewords at unknown locations
+
+
+
+#### Ref
+- https://dev.to/maxart2501/let-s-develop-a-qr-code-generator-part-i-basic-concepts-510a
+- https://codingchallenges.fyi/challenges/challenge-qr-generator/
+- https://en.wikipedia.org/wiki/QR_code
+- https://en.wikipedia.org/wiki/ISO/IEC_8859-1
+- https://en.wikipedia.org/wiki/Reed%E2%80%93Solomon_error_correction
